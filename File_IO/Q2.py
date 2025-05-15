@@ -1,73 +1,80 @@
 import os
 
-def create_file(filename, content="THIS IS THE DEFAULT CONTENT OF A FILE"): # ye default content hai
+def create_file(filename, content="THIS IS THE DEFAULT CONTENT OF A FILE"):
     with open(filename, 'w') as file:
         file.write(content)
-    print(f"File '{filename}'  : content is addedd to the given file....")
+    print(f"File '{filename}' : content is added to the given file....")
+
 #--------------------------------------------------------------------------------------------------
 def read_file(filename):
     try:
         with open(filename, 'r') as file:
             for line in file:
                 print(line.strip())
-    
-    except FileNotFoundError:      # <-------------- 
-        ("Error : File doesnt exist...!")
+    except FileNotFoundError:
+        print("Error : File doesn't exist...!")
+
 #--------------------------------------------------------------------------------------------------
-def delte_file(filename):
+def delete_file(filename):
     try:
         os.remove(filename)
+        print(f"File '{filename}' deleted successfully.")
     except FileNotFoundError:
-        ("Error : No File to Delete")
+        print("Error : No file to delete.")
+
 #--------------------------------------------------------------------------------------------------
 def lst_dir():
     try:
         files = os.listdir()
         if not files:
-            print("Derectory is Empty")
+            print("Directory is empty.")
         else:
             for items in files:
                 print(items)
     except FileNotFoundError:
-        print("Error : No Such Directory Found")
+        print("Error : No such directory found.")
 
 #--------------------------------------------------------------------------------------------------
 def cng_dir(path):
     try:
         os.chdir(path)
-    except FileExistsError:
+    except FileNotFoundError:
         os.mkdir(path)
         os.chdir(path)
-        print(f"Directory ceated : '{path}'")
+        print(f"Directory created: '{path}'")
     print(f"Current directory => {os.getcwd()}")
-
-
-
-
 
 #--------------------------------------------------------------------------------------------------
 def operation():
-    uinput = input("Enter the command : ")
-    commandline = list(uinput.split('"'))
-    # print(commandline)
-    cmd = [x.strip() for x in commandline if x.strip()]
-    # print(cmd)
-    # print(len(commandline))
-    # print(len(cmd))
-    # print(type(cmd[0]))
-    # print(cmd[1])
-    # print(cmd[2])
-
     command_map = {
         "touch": create_file,
         "read": read_file,
-        "delete": delte_file,
-        "ls":lst_dir,
-        "cd":cng_dir
+        "delete": delete_file,
+        "ls": lst_dir,
+        "cd": cng_dir
     }
 
+    while True:
+        uinput = input("Enter the command (or type 'exit' to quit): ").strip()
+        if uinput.lower() == "exit":
+            print("Exiting the program.")
+            break
 
-    command_map[cmd[0]](*cmd[1:])
+        commandline = list(uinput.split('"'))
+        cmd = [x.strip() for x in commandline if x.strip()]
+
+        if not cmd:
+            print("No command entered.")
+            continue
+
+        if cmd[0] not in command_map:
+            print("Invalid command.")
+            continue
+
+        try:
+            command_map[cmd[0]](*cmd[1:])
+        except TypeError as e:
+            print(f"Error: {e}")
 
 # ------------------ Main() function-----------------------
 operation()
