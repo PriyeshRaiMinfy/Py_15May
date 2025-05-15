@@ -20,7 +20,12 @@ def delte_file(filename):
         ("Error : No File to Delete")
 
 
-# -----------------------
-create_file('example4.txt', "Hello, My name is Priyesh.\n I am a tech intern at minfy")
+# ----------Main function-------------
+create_file('example1.txt', "Hello, My name is Priyesh.     \nI am a tech intern at minfy")
+create_file('example2.txt', "Hello, My name is Priyesh.     \nI am a tech intern at minfy")
+create_file('example3.txt', "Hello, My name is Priyesh.     \nI am a tech intern at minfy")
+create_file('example4.txt', "Hello, My name is Priyesh.     \nI am a tech intern at minfy")
 print("----------------------------------------------------------")
 read_file('example4.txt')
+print("----------------------------------------------------------")
+delte_file('example2.txt')

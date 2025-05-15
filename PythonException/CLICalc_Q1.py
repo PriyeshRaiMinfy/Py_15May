@@ -1,8 +1,6 @@
 def calculate():
     try:
-        op = input('''
-Choose operation: + | - | * | /
-''')
+        op = input('''       Choose operation: + | - | * | /     ''')
 
         nums = input("Enter numbers separated by space: ").split()
         print(nums)
@@ -45,5 +43,5 @@ Choose operation: + | - | * | /
 
     except ValueError:
         print("Error: Please enter valid numbers.")
-
+#----------------------------Main function----------------------------------------------
 calculate()
